@@ -11,7 +11,7 @@ class Zindex extends Component {
                     <input type="text"></input>
                     <p>Imagen</p>
                     <input type="text"></input>
-                    <button className="buton">Add <GoDiffAdded/></button>
+                    <a className="buton">Add <GoDiffAdded/></a>
                 </div>
             </div>
         );
