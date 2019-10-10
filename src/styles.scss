@@ -1,0 +1,107 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+$colorWhite: White;
+
+%button{
+    padding: 3px;
+    background-color: black;
+    border-radius: 10px;
+    border: 0px;
+    color: $colorWhite;
+    font-weight: bold;
+    padding: 10px;
+    width: 95px;
+}
+
+.app{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.nav{
+    background-color: black;
+    width: 20vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+
+    .elementos{
+        
+        color: $colorWhite;
+    }
+}
+
+.main{
+    background-color: $colorWhite;
+    width: 80vw;
+    height: 100vh;
+
+    .titulo{
+        color: #585858;
+        margin-left: 10px;
+        text-align: center;
+    }
+
+    .boton{
+        margin-left: 10px;
+        button{
+            @extend %button;
+        }
+    }
+
+    .contenedor{
+        background-color: $colorWhite;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .obra{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+
+            img{
+                width: 180px;
+            }
+        }
+    }
+}
+
+.zindex{
+    background-color: gray;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    input{
+        border-radius: 5px;
+        border: 0px;
+        padding: 5px;
+        margin-top: -30px;
+    }
+
+    p{
+        font-weight: bold;
+    }
+
+    .buton{
+        @extend %button;
+    }
+}
