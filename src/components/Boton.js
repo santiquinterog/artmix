@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {GoDiffAdded} from 'react-icons/go';
 
 class Boton extends Component {
 
@@ -6,7 +7,7 @@ class Boton extends Component {
         return (
             <div>
                 <div className="boton">
-                    <button>Add</button>
+                    <button>Add <GoDiffAdded/></button>
                 </div>
             </div>
         );

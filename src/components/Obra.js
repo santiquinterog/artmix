@@ -8,22 +8,22 @@ class Obra extends Component {
             obras: [{ autor: 'La celestina', img: 'https://http2.mlstatic.com/libro-la-celestina-tragicomedia-de-calisto-y-melibea-D_NQ_NP_770218-MLA25923781071_082017-F.jpg' }],
         };
         this.handleChange = this.handleChange.bind(this);
-        this.addobras = this.addobras.bind(this);
-        this.getobras = this.getobras.bind(this);
+        this.anadirObras = this.anadirObras.bind(this);
+        this.obtenerObras = this.obtenerObras.bind(this);
     }
     componentDidMount() {
         console.log(this.state);
-        this.addobras();
-        this.getobras();
+        this.anadirObras();
+        this.obtenerObras();
     }
 
-    addobras() {
+    anadirObras() {
         const obras = [{ autor: 'Shakespiere', img: 'https://images-eu.ssl-images-amazon.com/images/I/51ajznr23jL.jpg'}];
         localStorage.setItem("obras", JSON.stringify(obras));
         console.log('Obra guardada');
     }
 
-    getobras() {
+    obtenerObras() {
         let array = JSON.parse(localStorage.getItem('obras'));
         array.map(obra => {
             let newChild = obra;
@@ -44,11 +44,12 @@ class Obra extends Component {
 
     render() {
         return (
-            <div className="obra">
+            
+            <div className="contenedorObra">
                 {
                     this.state.obras.map(obra => {
                         return (
-                            <div>
+                            <div className="obra">
                                 <img src={obra.img}></img>
                                 <h4>{obra.autor}</h4>
                             </div>
