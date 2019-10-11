@@ -2,99 +2,12 @@ import React from 'react';
 import './styles.scss';
 import Menu from './components/Menu';
 import Main from './components/Main';
-import Modal from 'react-modal';
+import Zindex from './components/Zindex';
 
 const AppContext = React.createContext({
   works: []
 
 });
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
-
-Modal.setAppElement('#root')
-
-class ModalWrapper extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      modalIsOpen: false,
-      name: '',
-      img: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.anadirObras = this.anadirObras.bind(this);
-  }
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit(event) {
-    let tempArray = JSON.parse(localStorage.getItem('obras'));
-    var newPiece = { name: this.state.name, img: this.state.img }
-    tempArray.push(newPiece);
-    localStorage.setItem("obras", JSON.stringify(tempArray));
-    alert('Submitted ' + this.state.name);
-  }
-
-  openModal() {
-    this.setState({ modalIsOpen: true });
-  }
-  closeModal() {
-    this.setState({ modalIsOpen: false });
-  }
-
-  anadirObras() {
-    let tempArray = JSON.parse(localStorage.getItem('obras'));
-    let newPiece = { name: this.state.name, img: this.state.img }
-    const obras = [...tempArray];
-    localStorage.setItem("obras", JSON.stringify(obras));
-    console.log('Guardado');
-  }
-
-  render() {
-    return (
-      <div>
-        <button className='btn btn-red' onClick={this.openModal}>Add Piece</button>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal">
-          <h2>Add  a new Piece</h2>
-          <button onClick={this.closeModal}>close</button>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Name:
-          <input type="text" value={this.state.name} name="name" onChange={this.handleChange} />
-            </label>
-            <br />
-            <label>
-              img:
-          <input type="text" value={this.state.img} name="img" onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
-        </Modal>
-      </div>
-    );
-  }
-}
 
 class Obra extends React.Component {
   render() {
