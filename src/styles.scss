@@ -12,7 +12,6 @@
 $colorWhite: White;
 
 %button{
-    display: block;
     padding: 3px;
     background-color: black;
     border-radius: 10px;
@@ -56,7 +55,7 @@ $colorWhite: White;
 
     .boton{
         margin-left: 10px;
-        a{
+        button{
             @extend %button;
         }
     }
@@ -72,14 +71,23 @@ $colorWhite: White;
             display: flex;
             align-items: center;
 
+            
             .obra{
                 margin: 10px;
             
                 img{
                     width: 160px;
                 }
+            }
         }
-        }
+    }
+}
+
+.obra{
+    margin: 10px;
+
+    img{
+        width: 160px;
     }
 }
 
@@ -104,7 +112,7 @@ $colorWhite: White;
         font-weight: bold;
     }
 
-    .a{
+    .buton{
         @extend %button;
     }
 }

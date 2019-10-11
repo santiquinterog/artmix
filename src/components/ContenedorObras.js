@@ -7,7 +7,6 @@ class Contenedor extends Component {
         return (
             <div>
                 <div className="contenedor">
-                    <Obra/>
                 </div>
             </div>
         );

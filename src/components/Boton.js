@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import {GoDiffAdded} from 'react-icons/go';
 
-const Boton = ({ title }) => (
-    <div>
-        <a href="/AnadirPoema" className="boton">Add <GoDiffAdded/></a>
-    </div>
-);
+class Boton extends Component {
+
+    render() {
+        return (
+            <div>
+                <div className="boton">
+                    <button>Add <GoDiffAdded/></button>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default Boton;

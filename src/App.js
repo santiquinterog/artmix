@@ -3,13 +3,13 @@ import './styles.scss';
 import Menu from './components/Menu';
 import Main from './components/Main';
 import Modal from 'react-modal';
-import Obra from './components/Obra';
 
-const Context = React.createContext({
-  works: [{ autor: 'La celestina', img: 'https://http2.mlstatic.com/libro-la-celestina-tragicomedia-de-calisto-y-melibea-D_NQ_NP_770218-MLA25923781071_082017-F.jpg' },{ autor: 'Shakespiere', img: 'https://images-eu.ssl-images-amazon.com/images/I/51ajznr23jL.jpg'}]
+const AppContext = React.createContext({
+  works: []
+
 });
 
-const styles = {
+const customStyles = {
   content: {
     top: '50%',
     left: '50%',
@@ -18,25 +18,24 @@ const styles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
   }
-}
+};
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 
-class ModalV extends React.Component {
-  
+class ModalWrapper extends React.Component {
   constructor() {
     super();
 
     this.state = {
       modalIsOpen: false,
-      autor: '',
+      name: '',
       img: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.addPiece = this.addPiece.bind(this);
+    this.anadirObras = this.anadirObras.bind(this);
   }
   handleChange(e) {
     const { name, value } = e.target;
@@ -60,12 +59,12 @@ class ModalV extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
-  addPiece() {
+  anadirObras() {
     let tempArray = JSON.parse(localStorage.getItem('obras'));
     let newPiece = { name: this.state.name, img: this.state.img }
     const obras = [...tempArray];
     localStorage.setItem("obras", JSON.stringify(obras));
-    console.log('saved!');
+    console.log('Guardado');
   }
 
   render() {
@@ -75,7 +74,7 @@ class ModalV extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
-          style={styles}
+          style={customStyles}
           contentLabel="Example Modal">
           <h2>Add  a new Piece</h2>
           <button onClick={this.closeModal}>close</button>
@@ -97,25 +96,24 @@ class ModalV extends React.Component {
   }
 }
 
-class Piece extends React.Component {
+class Obra extends React.Component {
   render() {
     return (
-      <Context.Consumer>
+      <AppContext.Consumer>
         {value => {
           return (
             <div className="obra">
               {value.works.map(work =>
                 <div>
-                  {
-                    console.log(work)
-                  }
+                  <span><img src={work.img} /></span>
+                  <span>{work.autor}</span>
                 </div>
               )}
             </div>
           );
         }}
 
-      </Context.Consumer>
+      </AppContext.Consumer>
     );
   }
 }
@@ -125,42 +123,41 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      pieces: [],
+      Obras: [],
     };
-    this.addPieces = this.addPieces.bind(this);
-    this.getPieces = this.getPieces.bind(this);
+    this.anadirObras = this.anadirObras.bind(this);
+    this.obtenerObras = this.obtenerObras.bind(this);
+
   }
   componentDidMount() {
-
-    this.getPieces();
+    this.anadirObras();
+    this.obtenerObras();
+  }
+  anadirObras() {     
+    let tempArray = JSON.parse(localStorage.getItem('obras'))     
+    if (tempArray == null) {
+      const obras = [{ autor: 'La celestina', img: 'https://http2.mlstatic.com/libro-la-celestina-tragicomedia-de-calisto-y-melibea-D_NQ_NP_770218-MLA25923781071_082017-F.jpg' },
+      { autor: 'La Odisea', img: 'http://bit.ly/2OycArf' }];       
+      localStorage.setItem("obras", JSON.stringify(obras));       
+      console.log('Obras guardadas');     
+    }    
   }
 
-  addPieces() {
-    let tempArray = JSON.parse(localStorage.getItem('obras'))
-    if (tempArray.length == 0) {
-      const obras = [{ name: 'La Odisea', img: 'http://bit.ly/2OycArf' }, { name: 'La Cabaña del Tío Tom', img: 'http://bit.ly/35qoxVJ' }, { name: 'Frankenstein', img: 'http://bit.ly/33mc2sF' }];
-      localStorage.setItem("obras", JSON.stringify(obras));
-      console.log('Seed Pieces saved!');
-    }
-
-  }
-  getPieces() {
+  obtenerObras() {
     let tempArray = JSON.parse(localStorage.getItem('obras'));
-    this.setState({ pieces: tempArray });
+    this.setState({ Obras: tempArray });
 
   }
-
+  
   render() {
-    //console.log(this.state.pieces);
     return (
       <div className="app">
-         <Context.Provider value={{works: this.state.pieces}}>
-            <Menu />
-            <Main>
-              <Obra/>
-            </Main>
-            <ModalV></ModalV>
-        </Context.Provider>
+        <AppContext.Provider value={{ works: this.state.Obras }}>
+          <Menu/>
+          <Main>
+            <Obra></Obra>
+          </Main>
+        </AppContext.Provider>
       </div>
     );
   }
