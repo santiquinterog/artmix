@@ -3,9 +3,10 @@ import './styles.scss';
 import Menu from './components/Menu';
 import Main from './components/Main';
 import Modal from 'react-modal';
+import Obra from './components/Obra';
 
 const Context = React.createContext({
-  works: []
+  works: [{ autor: 'La celestina', img: 'https://http2.mlstatic.com/libro-la-celestina-tragicomedia-de-calisto-y-melibea-D_NQ_NP_770218-MLA25923781071_082017-F.jpg' },{ autor: 'Shakespiere', img: 'https://images-eu.ssl-images-amazon.com/images/I/51ajznr23jL.jpg'}]
 });
 
 const styles = {
@@ -105,8 +106,9 @@ class Piece extends React.Component {
             <div className="obra">
               {value.works.map(work =>
                 <div>
-                  <img src={work.img} />
-                  <h4>{work.name}</h4>
+                  {
+                    console.log(work)
+                  }
                 </div>
               )}
             </div>
@@ -149,14 +151,15 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.pieces);
+    //console.log(this.state.pieces);
     return (
       <div className="app">
-         <Context.Provider value={{obras: this.state.pieces}}>
-          <Menu />
-          <Main />
-          <ModalV></ModalV>
-          <Piece></Piece>
+         <Context.Provider value={{works: this.state.pieces}}>
+            <Menu />
+            <Main>
+              <Obra/>
+            </Main>
+            <ModalV></ModalV>
         </Context.Provider>
       </div>
     );

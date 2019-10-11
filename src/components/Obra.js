@@ -42,7 +42,8 @@ class Obra extends Component {
                     
                 this.state.obras.map(obra => {
                         return (
-                            <div className="obra">                <img src={obra.img}></img>
+                            <div className="obra">                
+                            <img src={obra.img}></img>
                                 <h4>{obra.autor}</h4>
                             </div>
                         );
